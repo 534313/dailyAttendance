@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.dao.attendanceDao">
+    <select id="getNum" resultType="Integer">
+        select count(*) from attendance
+    </select>
+    <select id="getAllAttendances" resultType="com.example.demo.entity.attendance">
+        select * from attendance order by time desc
+    </select>
+    <select id="insertAttendance" parameterType="com.example.demo.entity.attendance">
+        insert into attendance(time,rate)
+        values(#{time},#{rate})
+    </select>
+    <select id="getNowAttendance" resultType="com.example.demo.entity.attendance">
+        select * from attendance where time= (select MAX(time) from attendance)
+    </select>
+    <update id="updateAttendance" >
+        update attendance set rate=#{rate} where id=#{id}
+    </update>
+</mapper>
